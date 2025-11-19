@@ -25,7 +25,7 @@ const Cart: React.FC<CartProps> = ({ cart, selectedAddons, onRemove, onToggleAdd
   const total = subtotal + addonTotal;
 
   return (
-    <aside className="sticky top-24 bg-white p-6 rounded-xl shadow-lg">
+   <aside id="cart" className="sticky top-24 bg-white p-6 rounded-xl shadow-lg">
         <div className="flex items-center gap-3 mb-4">
             <IconShoppingCart className="w-7 h-7 text-green-600"/>
             <h2 className="text-2xl font-bold text-gray-800">Your Meal Plan</h2>
