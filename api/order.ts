@@ -1,29 +1,26 @@
+import { createClient } from '@supabase/supabase-js';
 
-export default async function handler(request: any, response: any) {
-  if (request.method !== 'POST') {
-    return response.status(405).json({ error: 'Method Not Allowed' });
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  try {
-    const { items, addons } = request.body;
+  const supabase = createClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!  // backend safe key
+  );
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return response.status(400).json({ error: 'Cart is empty' });
-    }
+  const { items, addons } = req.body;
 
-    // Simulate backend processing delay (e.g., database write, payment processing)
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  const { data, error } = await supabase
+    .from('orders')
+    .insert([{ items, addons }]);
 
-    // Generate a mock Order ID
-    const orderId = `ORD-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`;
-
-    return response.status(200).json({
-      success: true,
-      message: 'Order placed successfully',
-      orderId,
-    });
-  } catch (error) {
-    console.error('Order processing error:', error);
-    return response.status(500).json({ error: 'Internal Server Error' });
+  if (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, error });
   }
+
+  return res.status(200).json({ success: true, data });
 }
+
