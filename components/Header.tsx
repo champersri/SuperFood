@@ -10,13 +10,13 @@ const Header: React.FC = () => {
           <IconLeaf className="w-8 h-8 text-green-600" />
           <span className="text-xl font-bold text-gray-800">Super Food</span>
         </div>
-        <a 
-            href="https://github.com/google/genai-web-template" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-semibold shadow-sm">
-            Order Now
-        </a>
+       <a 
+  href="#cart"
+  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-semibold shadow-sm"
+>
+  Order Now
+</a>
+
       </div>
     </header>
   );
